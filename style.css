@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Open sans', sans-serif;
+  color: #888;
+}
+
+section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: #222;
+}
+
+section h2 {
+  font-size: 3rem;
+  letter-spacing: 10px;
+  padding: 50px 0 20px;
+  color: #fff;
+}
+
+.app {
+    width: 100%;
+    max-width: 600px;
+}
+
+.todoInput,
+.todoList,
+.todoFooter{
+    background: #333;
+}
+
+.todoInput {
+    margin-bottom: 35px;
+}
+
+.todoInput span,
+.todoInput input {
+    background: transparent;
+}
+
+.todoInput span {
+    background: linear-gradient(to right, red, purple);
+    margin-left: 20px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    cursor: pointer;
+    color: #fff;
+}
+
+.todoInput input {
+    padding: 20px;
+    border: 0;
+    width: 91%;
+}
+
+.todoList li {
+    list-style: none;
+    cursor: pointer;
+    position: relative;
+    padding: 15px 40px;
+    border-bottom: 2px solid #444;
+    transition: 0.5s;
+}
+
+.todoList li:hover {
+    background-color: #888;
+    color: #fff;
+}
+
+.todoList li.completed {
+    text-decoration: line-through;
+}
+
+.todoList li.completed::before {
+    content: '';
+    position: absolute;
+    border-color: #fff;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    left: 16px;
+    transform: rotate(45deg);
+    height: 15px;
+    width: 7px;
+}
+
+.todoList .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 6.5px 17px;
+    transition: 0.5s;
+    display: none;
+    font-size: 1.8rem;
+}
+
+.todoList li:hover .close {
+    display: block;
+    color: #fff;
+}
+
+.todoList .close:hover {
+    background-color: #f44336;
+    color: white;
+  }
+
+.todoFooter {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.7rem;
+}
+
+.todoFooter .todoCategories {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.todoFooter p,
+.todoFooter span {
+    font-weight: 800;
+}
+
+.todoFooter #delete,
+.todoFooter span {
+    cursor: pointer;
+}
+
+span.active {
+    color: #4242c5;
+}
+
+.statuses:hover {
+    color: #4242c5;
+}

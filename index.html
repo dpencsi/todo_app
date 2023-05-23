@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section>
+        <div class="app">
+
+          <h2>Todo</h2>
+
+          <div class="todoInput">
+            <span class="addBtn" onclick="addTodo();">+</span>
+            <input type="text" id="todo" placeholder="Create a new todo...">
+          </div>
+
+          <ul class="todoList"></ul>
+
+          <div class="todoFooter">
+            <p><span id="todoCount">0</span> todo</p>
+
+            <div class="todoCategories">
+              <span class="statuses active" onclick="setStatus('all');">All</span>
+              <span class="statuses" onclick="setStatus('');">Incomplete</span>
+              <span class="statuses" onclick="setStatus('completed');">Completed</span>
+            </div>
+
+            <p id="delete" class="statuses" onclick="deleteAll();">Delete completed</p>
+          </div>
+
+        </div>
+      </section>
+      <script>
+        let todo_list = document.querySelector('.todoList');
+        let todo_count = document.getElementById('todoCount');
+        let statuses = document.querySelectorAll('span.statuses');
+        let todos = [
+            {
+                text: 'Practise programming',
+                status: 'completed'
+            },
+            {
+                text: 'Show my amazing todo to friends',
+                status: ''
+            },
+            {
+                text: 'Eat',
+                status: ''
+            },
+            {
+                text: 'Hit the gym',
+                status: 'completed'
+            },
+            {
+                text: 'Study english',
+                status: ''
+            }
+        ];
+        let todoStatus = 'all';
+
+        todo_list.onclick = function(element){
+            console.log(element.target);
+            if(element.target.tagName == 'LI'){
+
+                element.target.classList.toggle('completed');
+                if(element.target.classList.contains('completed')) {
+                    todos[element.target.id].status = 'completed';
+                }else{
+                    todos[element.target.id].status = '';
+                }
+
+            }else if(element.target.tagName == 'SPAN'){
+
+                deleteTodo(element.target.parentElement);
+
+            }
+        };
+
+        function setActive(){
+            statuses.forEach(i =>  i.classList.remove('active'));
+            this.classList.add('active');
+        }
+
+        statuses.forEach(i => i.addEventListener('click', setActive));
+
+        function setStatus(status) {
+            todoStatus = status;
+            laodTodos();
+        }
+
+        // add todo
+        function addTodo(){
+            let text = document.getElementById('todo').value;
+            if(text.length != 0){
+                let index = todos.length;
+
+                todos.push(
+                    {
+                        text,
+                        status: ''
+                    }
+                );
+
+                todo_list.innerHTML += `
+                <li id="${index}">
+                    ${text}
+                    <span class="close">&#215;</span>
+                </li>`;
+            }
+
+            todo_count.innerText = todos.length;
+        }
+
+        // remove todo
+        function deleteTodo(element){
+            if(element.id.length != 0){
+                document.getElementById(element.id).remove();
+            }
+            todos.splice(element.id, 1);
+            laodTodos();
+            todo_count.innerText = todos.length;
+        }
+
+        function laodTodos(){
+            todo_list.innerHTML = '';
+            let todoCountIndex = 0;
+
+            todos.forEach((todo, index) => {
+                console.log(todo, index);
+                if(todo.status == todoStatus || todoStatus == 'all'){
+                    todo_list.innerHTML += `
+                        <li class="${todo.status}" id="${index}">
+                            ${todo.text}
+                            <span class="close">&#215;</span>
+                        </li>`;
+                    todoCountIndex++;
+                }
+            });
+            todo_count.innerText = todoCountIndex;
+        }
+
+        function deleteAll(){
+            todos.length = 0;
+            todo_list.innerHTML = '';
+            todo_count.innerText = todos.length;
+        }
+
+        laodTodos();
+      </script>
+</body>
+</html>
